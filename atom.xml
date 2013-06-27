@@ -1,45 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[ProvenStyle]]></title>
+  <title><![CDATA[Proven Style]]></title>
   <link href="http://provenstyle.github.io/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
-  <updated>2013-06-26T18:21:22-05:00</updated>
+  <updated>2013-06-27T09:44:01-05:00</updated>
   <id>http://provenstyle.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Michael Dudley]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://provenstyle.github.io/blog/2013/06/26/hello-world/"/>
-    <updated>2013-06-26T18:18:00-05:00</updated>
-    <id>http://provenstyle.github.io/blog/2013/06/26/hello-world</id>
-    <content type="html"><![CDATA[<h1>an h1</h1>
-
-<h2>an h2</h2>
-
-<ol>
-<li>abc</li>
-<li>abc</li>
-<li>abc</li>
-<li>abc</li>
-</ol>
-
-
-<p>ksjdhfksjdhfskjhf</p>
-
-<ul>
-<li>abc</li>
-<li>abc</li>
-<li>abc</li>
-<li>abc</li>
-</ul>
-
-]]></content>
-  </entry>
   
 </feed>
