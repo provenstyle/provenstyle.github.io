@@ -1,0 +1,23 @@
+---
+layout: post
+title: "git clean"
+date: 2013-07-13 13:48
+comments: true
+categories: 
+---
+
+I love finding new commands for git that make my life simpler.  I added a new git command to my tool belt today. 
+
+	git clean -d -f
+
+git clean removes files and directories that are not being tracked by git.  It is really useful for deleting the Visual Studio artifacts that hang around even if they are not being used.  It is amazing how may problems can be solved with your solution just by deleting the bin folder and recreating it.  I find this especially true when I do sweeping refactorings in my solution.
+
+-n Will do a dry run. It doesn't remove anything it just tells you what it would delete.
+
+-d Tells git to remove directories
+
+-f Forces the delete
+
+To delete files only and not the directories
+	
+	git clean -f
