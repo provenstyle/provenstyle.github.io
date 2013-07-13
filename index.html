@@ -9,7 +9,7 @@
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="I love finding new commands for git that make my life simpler. I added a new git command to my tool belt today. git clean -d -f git clean removes &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,58 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/13/git-clean/">Git Clean</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T13:48:00-05:00" pubdate data-updated="true">Jul 13<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I love finding new commands for git that make my life simpler.  I added a new git command to my tool belt today.</p>
+
+<pre><code>git clean -d -f
+</code></pre>
+
+<p>git clean removes files and directories that are not being tracked by git.  It is really useful for deleting the Visual Studio artifacts that hang around even if they are not being used.  It is amazing how may problems can be solved with your solution just by deleting the bin folder and recreating it.  I find this especially true when I do sweeping refactorings in my solution.</p>
+
+<p>-n Will do a dry run. It doesn&rsquo;t remove anything it just tells you what it would delete.</p>
+
+<p>-d Tells git to remove directories</p>
+
+<p>-f Forces the delete</p>
+
+<p>To delete files only and not the directories</p>
+
+<pre><code>git clean -f
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
     <a href="/blog/archives">Blog Archives</a>
@@ -76,6 +128,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/13/git-clean/">Git Clean</a>
+      </li>
     
   </ul>
 </section>
