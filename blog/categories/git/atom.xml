@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Proven Style]]></title>
-  <link href="http://provenstyle.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: git | Proven Style]]></title>
+  <link href="http://provenstyle.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
   <updated>2013-07-13T22:10:26-05:00</updated>
   <id>http://provenstyle.github.io/</id>
