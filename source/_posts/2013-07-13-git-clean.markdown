@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "git clean"
+title: "Git Clean"
 date: 2013-07-13 13:48
 comments: true
-categories: 
+categories: git
+footer: false
 ---
 
 I love finding new commands for git that make my life simpler.  I added a new git command to my tool belt today. 
