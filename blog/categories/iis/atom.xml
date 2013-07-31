@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: IIS | Proven Style]]></title>
+  <link href="http://provenstyle.github.io/blog/categories/iis/atom.xml" rel="self"/>
+  <link href="http://provenstyle.github.io/"/>
+  <updated>2013-07-31T08:51:36-05:00</updated>
+  <id>http://provenstyle.github.io/</id>
+  <author>
+    <name><![CDATA[Michael Dudley]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setting Permissions For Your App Pool]]></title>
+    <link href="http://provenstyle.github.io/blog/2013/07/31/setting-permissions-for-your-app-pool/"/>
+    <updated>2013-07-31T08:37:00-05:00</updated>
+    <id>http://provenstyle.github.io/blog/2013/07/31/setting-permissions-for-your-app-pool</id>
+    <content type="html"><![CDATA[<p>How the heck do you reference an IIS application pool user when you need to give it access to a directory?  I never can remember either! I flounder around trying different combinations.  I question whether it needs quotes.  I look for the right stack overflow question and never seem to find it.  So here it is for you and I to remember.  Don&rsquo;t worry about the spaces and no need for quotation marks.</p>
+
+<pre><code>IIS AppPool\application pool name
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
