@@ -6,6 +6,6 @@ comments: true
 sharing: true
 footer: false
 ---
-<h2><a href="http://flashcards.provenstyle.com.foxglove.arvixe.com/#/">Flash Cards</a></h2>
+<h2><a href="http://flashcards.provenstyle.com">Flash Cards</a></h2>
 
 A Single-Page web application built using Durandal.
