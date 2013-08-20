@@ -6,11 +6,11 @@ comments: true
 categories: 
 ---
 
-Every time I have set up a new development evnironment in the last three years I have forgotten to register Asp.net with IIS.  When I was first learning it would derail me for for a quite a while.  I have done it so many times now that I recognize what is going on when I see the errors, but it is still irritating.  What was that command again?  I am putting it here so I never have to google it again!
+Every time I have set up a new development environment in the last three years I have forgotten to register Asp.net with IIS.  When I was first learning it would derail me for a quite a while.  I have done it so many times now that I recognize what is going on when I see the errors, but it is still irritating.  What was that command again?  I am putting it here so I never have to Google it again!
 
 	aspnet_regiis
 
-"Not a recognized command!", you say?
+"Not a recognized command!" you say?
 Yes, you have to change directories into the .net version that you are using.
 
 	cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
