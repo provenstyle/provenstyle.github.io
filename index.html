@@ -9,7 +9,7 @@
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="How the heck do you reference an IIS application pool user when you need to give it access to a directory? I never can remember either! I flounder &hellip;">
+  <meta name="description" content="Every time I have set up a new development evnironment in the last three years I have forgotten to register Asp.net with IIS. When I was first &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/19/registering-asp-dot-net/">Registering ASP.NET in IIS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-19T16:32:00-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Every time I have set up a new development evnironment in the last three years I have forgotten to register Asp.net with IIS.  When I was first learning it would derail me for for a quite a while.  I have done it so many times now that I recognize what is going on when I see the errors, but it is still irritating.  What was that command again?  I am putting it here so I never have to google it again!</p>
+
+<pre><code>aspnet_regiis
+</code></pre>
+
+<p>&ldquo;Not a recognized command!&rdquo;, you say?
+Yes, you have to change directories into the .net version that you are using.</p>
+
+<pre><code>cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
+</code></pre>
+
+<p>Now run the command.</p>
+
+<p>What? That didn&rsquo;t do it either?  Don&rsquo;t forget to add the install flag.</p>
+
+<pre><code>aspnet_regiis -i
+</code></pre>
+
+<p>Still not working?  Don&rsquo;t forget to start your command prompt as admin, and yes now you have to cd directories all over again into your .net version.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -169,6 +223,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/19/registering-asp-dot-net/">Registering ASP.NET in IIS</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/07/31/setting-permissions-for-your-app-pool/">Setting Permissions for Your App Pool</a>

@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>About Michael Dudley - Proven Style</title>
+  <title>Registering ASP.NET in IIS - Proven Style</title>
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="About Michael Dudley I am a Christian, husband, father, programmer, musician, carpenter, and Improver! Its funny how life turns out sometimes. We &hellip;">
+  <meta name="description" content="Every time I have set up a new development evnironment in the last three years I have forgotten to register Asp.net with IIS. When I was first &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://provenstyle.github.io/about">
+  <link rel="canonical" href="http://provenstyle.github.io/blog/2013/08/19/registering-asp-dot-net">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Proven Style" type="application/atom+xml">
@@ -65,24 +65,96 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">About Michael Dudley</h1>
+    
+      <h1 class="entry-title">Registering ASP.NET in IIS</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-19T16:32:00-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
+        
+      </p>
     
   </header>
+
+
+<div class="entry-content"><p>Every time I have set up a new development evnironment in the last three years I have forgotten to register Asp.net with IIS.  When I was first learning it would derail me for for a quite a while.  I have done it so many times now that I recognize what is going on when I see the errors, but it is still irritating.  What was that command again?  I am putting it here so I never have to google it again!</p>
+
+<pre><code>aspnet_regiis
+</code></pre>
+
+<p>&ldquo;Not a recognized command!&rdquo;, you say?
+Yes, you have to change directories into the .net version that you are using.</p>
+
+<pre><code>cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
+</code></pre>
+
+<p>Now run the command.</p>
+
+<p>What? That didn&rsquo;t do it either?  Don&rsquo;t forget to add the install flag.</p>
+
+<pre><code>aspnet_regiis -i
+</code></pre>
+
+<p>Still not working?  Don&rsquo;t forget to start your command prompt as admin, and yes now you have to cd directories all over again into your .net version.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <p>I am a Christian, husband, father, programmer, musician, carpenter, and Improver!</p>
 
-<p>Its funny how life turns out sometimes.  We make our plans but God directs our steps.  In high school I was torn between studying Engineering at Texas A&amp;M or Music at the University of North Texas. Ironically, after graduating from The University of North Texas with my degree in music, I went to work for Peterbilt Motor Company building Class 8 trucks and working for almost 10 years immersed in engineering.</p>
+<span class="byline author vcard">Posted by <span class="fn">Michael Dudley</span></span>
 
-<p>I still remember the day when my boss asked me to take over running our departments weekly reports.  &ldquo;If you can figure out how to automate them that would be great!&rdquo; she said.  That led me to Visual Basic, then to Java, and finally to C#.</p>
+      
 
-<p>When I discovered programming it was like discovering what I wanted to be when I grew up.  I was obsessed.  I read books, went to conferences, read blogs, watched screen casts, attended user groups, and stayed up way too late writing code. I desperately wanted to be with other programmers that were passionate about software development.  I began searching for the best software company in Dallas.  In my mind I was not the one being interviewed but I was interviewing the company.</p>
 
-<p>I did find the best company to work for in Dallas.  I joined Improving Enterprises in January of 2012.  Improving has the most amazing pople.  They are passionate about software development.  They are excellent at what they do.  They are speaking at conferences and user groups, writing book, contributing to open source projects and host many of the areas user groups in their offices in Addison.  I am privileged to work side by side with these amazing people.</p>
+
+
+
+
+
 
   
+
+
+<time datetime="2013-08-19T16:32:00-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2013/08/19/registering-asp-dot-net/" data-via="" data-counturl="http://provenstyle.github.io/blog/2013/08/19/registering-asp-dot-net/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/31/setting-permissions-for-your-app-pool/" title="Previous Post: Setting Permissions For Your App Pool">&laquo; Setting Permissions For Your App Pool</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
