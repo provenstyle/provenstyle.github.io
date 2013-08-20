@@ -22,6 +22,5 @@ What? That didn't do it either?  Don't forget to add the install flag.
 
 	aspnet_regiis -i
 
-Still not working?  Don't forget to start your command prompt as admin, and yes now you have to cd directories all over again into your .net version.  Isn't this fun?
-
+Still not working?  Don't forget to start your command prompt as admin, and yes now you have to cd directories all over again into your .net version.  
 
