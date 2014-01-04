@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: asp.net, | Proven Style]]></title>
+  <link href="http://provenstyle.github.io/blog/categories/asp-dot-net/atom.xml" rel="self"/>
+  <link href="http://provenstyle.github.io/"/>
+  <updated>2014-01-04T13:47:43-06:00</updated>
+  <id>http://provenstyle.github.io/</id>
+  <author>
+    <name><![CDATA[Michael Dudley]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Registering ASP.NET in IIS]]></title>
+    <link href="http://provenstyle.github.io/blog/2013/08/19/registering-asp-dot-net/"/>
+    <updated>2013-08-19T16:32:00-05:00</updated>
+    <id>http://provenstyle.github.io/blog/2013/08/19/registering-asp-dot-net</id>
+    <content type="html"><![CDATA[<p>Every time I have set up a new development environment in the last three years I have forgotten to register Asp.net with IIS.  When I was first learning it would derail me for a quite a while.  I have done it so many times now that I recognize what is going on when I see the errors, but it is still irritating.  What was that command again?  I am putting it here so I never have to Google it again!</p>
+
+<pre><code>aspnet_regiis
+</code></pre>
+
+<p>&ldquo;Not a recognized command!&rdquo; you say?
+Yes, you have to change directories into the .net version that you are using.</p>
+
+<pre><code>cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
+</code></pre>
+
+<p>Now run the command.</p>
+
+<p>What? That didn&rsquo;t do it either?  Don&rsquo;t forget to add the install flag.</p>
+
+<pre><code>aspnet_regiis -i
+</code></pre>
+
+<p>Still not working?  Don&rsquo;t forget to start your command prompt as admin, and yes now you have to cd directories all over again into your .net version.</p>
+]]></content>
+  </entry>
+  
+</feed>
