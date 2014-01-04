@@ -4,7 +4,7 @@
   <title><![CDATA[Proven Style]]></title>
   <link href="http://provenstyle.github.io/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
-  <updated>2014-01-04T13:47:43-06:00</updated>
+  <updated>2014-01-04T13:52:05-06:00</updated>
   <id>http://provenstyle.github.io/</id>
   <author>
     <name><![CDATA[Michael Dudley]]></name>
@@ -12,15 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[test]]></title>
-    <link href="http://provenstyle.github.io/blog/2014/01/04/test/"/>
-    <updated>2014-01-04T13:38:00-06:00</updated>
-    <id>http://provenstyle.github.io/blog/2014/01/04/test</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Durandal - system.js]]></title>
