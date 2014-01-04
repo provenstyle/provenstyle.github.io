@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: IIS | Proven Style]]></title>
-  <link href="http://provenstyle.github.io/blog/categories/iis/atom.xml" rel="self"/>
+  <title><![CDATA[Category: asp.net, | Proven Style]]></title>
+  <link href="http://provenstyle.github.io/blog/categories/asp-dot-net/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
   <updated>2014-01-04T12:50:00-06:00</updated>
   <id>http://provenstyle.github.io/</id>
@@ -37,18 +37,6 @@ Yes, you have to change directories into the .net version that you are using.</p
 </code></pre>
 
 <p>Still not working?  Don&rsquo;t forget to start your command prompt as admin, and yes now you have to cd directories all over again into your .net version.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Setting Permissions For Your App Pool]]></title>
-    <link href="http://provenstyle.github.io/blog/2013/07/31/setting-permissions-for-your-app-pool/"/>
-    <updated>2013-07-31T08:37:00-05:00</updated>
-    <id>http://provenstyle.github.io/blog/2013/07/31/setting-permissions-for-your-app-pool</id>
-    <content type="html"><![CDATA[<p>How the heck do you reference an IIS application pool user when you need to give it access to a directory?  I never can remember either! I flounder around trying different combinations.  I question whether it needs quotes.  I look for the right stack overflow question and never seem to find it.  So here it is for you and I to remember.  Don&rsquo;t worry about the spaces and no need for quotation marks.</p>
-
-<pre><code>IIS AppPool\application pool name
-</code></pre>
 ]]></content>
   </entry>
   
