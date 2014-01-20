@@ -9,7 +9,7 @@
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="Today I went a little deeper into JavaScript! The problem I was facing was: &ldquo;How do I call a function and provide the arguments as an array &hellip;">
+  <meta name="description" content="I wrote an application that stores information in a SQL Server Compact database. It worked on my machine, but when QA installed it they received the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,153 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/20/deploying-sql-server-compact/">Deploying SQL Server Compact</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-20T17:46:00-06:00" pubdate data-updated="true">Jan 20<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I wrote an application that stores information in a SQL Server Compact database.  It worked on my machine, but when QA installed it they received the following error:</p>
+
+<pre>
+Exception occured while configuring the databaseSystem.ArgumentException: 
+Unable to find the requested .Net Framework Data Provider.  It may not be installed.
+    at System.Data.Entity.Infrastructure.SqlCeConnectionFactory.CreateConnection(String nameOrConnectionString)
+    at System.Data.Entity.Internal.LazyInternalConnection.Initialize()
+    at System.Data.Entity.Internal.LazyInternalConnection.get_ProviderName()
+    at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+    at System.Data.Entity.Internal.InternalContext.CreateObjectContextForDdlOps()
+    at System.Data.Entity.Database.Exists()
+</pre>
+
+
+<p>I had added references to the following dll&rsquo;s and they were in my bin directory:</p>
+
+<ul>
+<li>System.Data.SqlServerCe.dll</li>
+<li>System.Data.SqlServerCe.Entity.dll</li>
+</ul>
+
+
+<p>but SQL Server Compact has other dependencies of which I was not aware.  Namely SQL Server Compact needs its own native components.  These can either come from the GAC or from a local copy installed in the applications file path.</p>
+
+<h2>Reproducing the issue</h2>
+
+<p>I had installed SQL Server Compact 4.0 on my machine several months back and didn&rsquo;t realize these libraries were installed in the Gac on my machine.  To reproduce the issue all I had to do was uninstalled SQL Server Compact 4.0.</p>
+
+<h2>Possible Solutions</h2>
+
+<ol>
+<li><p>Install SQL Server Compact on the target machine for my application.</p></li>
+<li><p>Include a local copy of the SQL Server Compact native components with my application.</p></li>
+</ol>
+
+
+<p>I chose option two because the whole idea of using SQLCE on this project was so that the users did not have to install a database.</p>
+
+<h2>First I had to get the Microsoft SQL Server Compact files</h2>
+
+<p>I installed Microsoft SQL Server Compact 4 on my machine again and in the <code>C:\Program Files\Microsoft SQL Server Compact Edition\v4.0\Private</code> folder are all the files I needed to deploy SqlCE with my application. After I got the files I needed I uninstalled SqlCE again.</p>
+
+<h2>Next I had to add a post build event</h2>
+
+<p>This copies two processor specific folders into the bin directory</p>
+
+<pre>
+if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+xcopy /s /y "$(SolutionDir)..\Lib\Microsoft\SqlServerCe\x86\*.*" "$(TargetDir)x86"
+
+if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+xcopy /s /y "$(SolutionDir)..\Lib\Microsoft\SqlServerCe\amd64\*.*" "$(TargetDir)amd64"
+
+</pre>
+
+
+<h2>Then I had to configure my Data Provider</h2>
+
+<pre><code>&lt;system.data&gt;
+    &lt;DbProviderFactories&gt;
+        &lt;remove invariant="System.Data.SqlServerCe.4.0" /&gt;
+        &lt;add name="Microsoft SQL Server Compact Data Provider 4.0" invariant="System.Data.SqlServerCe.4.0" description=".NET Framework Data Provider for Microsoft SQL Server Compact" type="System.Data.SqlServerCe.SqlCeProviderFactory, System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /&gt;
+    &lt;/DbProviderFactories&gt;
+&lt;/system.data&gt;
+</code></pre>
+
+<h2>Lastly I needed an assembly redirect</h2>
+
+<p>Here is the error I encountered.</p>
+
+<pre>
+Could not load file or assembly 'System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+</pre>
+
+
+<h3>Assembly Redirect</h3>
+
+<pre><code>&lt;dependentAssembly&gt;
+    &lt;assemblyIdentity name="System.Data.SqlServerCe" publicKeyToken="89845dcd8080cc91" culture="neutral" /&gt;
+    &lt;bindingRedirect oldVersion="0.0.0.0-4.0.0.1" newVersion="4.0.0.1" /&gt;
+&lt;/dependentAssembly&gt;
+</code></pre>
+
+<h2>Also noteworthy</h2>
+
+<p>I had already configured Entity Frame work to use SqlCE</p>
+
+<pre><code>&lt;configSections&gt;
+    &lt;section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" /&gt;
+&lt;/configSections&gt;
+
+&lt;connectionStrings&gt;
+    &lt;add name="lvsData" connectionString="Data Source=C:\temp\appData.sdf;Max Database Size=4000;" providerName="System.Data.SqlServerCe.4.0" /&gt;
+&lt;/connectionStrings&gt;
+
+&lt;runtime&gt;    
+    &lt;assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
+        &lt;dependentAssembly&gt;
+            &lt;assemblyIdentity name="EntityFramework" publicKeyToken="b77a5c561934e089" culture="neutral" /&gt;
+            &lt;bindingRedirect oldVersion="0.0.0.0-5.0.0.0" newVersion="5.0.0.0" /&gt;
+        &lt;/dependentAssembly&gt;      
+    &lt;/assemblyBinding&gt;
+&lt;/runtime&gt;
+
+&lt;entityFramework&gt;
+    &lt;defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlCeConnectionFactory, EntityFramework"&gt;
+        &lt;parameters&gt;
+            &lt;parameter value="System.Data.SqlServerCe.4.0" /&gt;
+        &lt;/parameters&gt;
+    &lt;/defaultConnectionFactory&gt;
+&lt;/entityFramework&gt;
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -480,6 +627,10 @@ Yes, you have to change directories into the .net version that you are using.</p
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/20/deploying-sql-server-compact/">Deploying SQL Server Compact</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/">Using Apply in JavaScript</a>
       </li>
     
@@ -493,10 +644,6 @@ Yes, you have to change directories into the .net version that you are using.</p
     
       <li class="post">
         <a href="/blog/2013/07/31/setting-permissions-for-your-app-pool/">Setting Permissions for Your App Pool</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/13/git-clean/">Git Clean</a>
       </li>
     
   </ul>
