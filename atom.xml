@@ -4,7 +4,7 @@
   <title><![CDATA[Proven Style]]></title>
   <link href="http://provenstyle.github.io/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
-  <updated>2014-01-20T17:52:37-06:00</updated>
+  <updated>2014-06-27T13:24:22-05:00</updated>
   <id>http://provenstyle.github.io/</id>
   <author>
     <name><![CDATA[Michael Dudley]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Durandal: Bundling Multiple Spas With Weyland]]></title>
+    <link href="http://provenstyle.github.io/blog/2014/06/27/Bundling-Multiple-Spas/"/>
+    <updated>2014-06-27T13:00:00-05:00</updated>
+    <id>http://provenstyle.github.io/blog/2014/06/27/Bundling-Multiple-Spas</id>
+    <content type="html"><![CDATA[<p><a href="http://bit.ly/DurandalBlog">Durandal.js: Get Started</a></p>
+
+<p>By default Weyland expects a configuration file called <code>weyland-config.js</code> This caused me problems when I added multiple SPA pages to my solution.  I wanted to create two different bundled files.  One for each SPA.</p>
+
+<p>Its not in the documentation, but you can specify the config file as an optional parameter <code>--config</code>.  To make this work I also had to use the trick of appending <code>%~dp0</code> to the config file name to include the full path of the config file.  More information on <code>%~dp0</code> can be found by typing <code>for /?</code> into a command prompt and reading the help. If you don&rsquo;t do this weyland will not find your config file and continue to look for the default config.</p>
+
+<p>In the end this worked for me.</p>
+
+<pre><code>weyland build --config "%~dp0customConfigFile1.js"
+weyland build --config "%~dp0customConfigFile2.js"
+</code></pre>
+
+<h2>Important</h2>
+
+<p>I was also reminded the hard way that JavaScript is case sensitive.  This mean that node is also case sensitive.  So I spent several hours trying to figure out why my bundling was not excluding the files I told it to exclude.  It turns out I had a mismatch in the casing of a directory name.  On the file system its name was capitalized, and in the config file I had used lowercase.  It was very frustrating, but looking on the bright side, I was forced to learn how to debug node application using the console.</p>
+
+<p><a href="http://bit.ly/DurandalBlog">Durandal.js: Get Started</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Deploying SQL Server Compact]]></title>

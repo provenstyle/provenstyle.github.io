@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: javascript, | Proven Style]]></title>
-  <link href="http://provenstyle.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <title><![CDATA[Category: weyland | Proven Style]]></title>
+  <link href="http://provenstyle.github.io/blog/categories/weyland/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
   <updated>2014-06-27T13:24:22-05:00</updated>
   <id>http://provenstyle.github.io/</id>
@@ -35,46 +35,6 @@ weyland build --config "%~dp0customConfigFile2.js"
 <p>I was also reminded the hard way that JavaScript is case sensitive.  This mean that node is also case sensitive.  So I spent several hours trying to figure out why my bundling was not excluding the files I told it to exclude.  It turns out I had a mismatch in the casing of a directory name.  On the file system its name was capitalized, and in the config file I had used lowercase.  It was very frustrating, but looking on the bright side, I was forced to learn how to debug node application using the console.</p>
 
 <p><a href="http://bit.ly/DurandalBlog">Durandal.js: Get Started</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Using apply in JavaScript]]></title>
-    <link href="http://provenstyle.github.io/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/"/>
-    <updated>2014-01-06T18:33:00-06:00</updated>
-    <id>http://provenstyle.github.io/blog/2014/01/06/using-apply-to-call-a-function-in-javascript</id>
-    <content type="html"><![CDATA[<p>Today I went a little deeper into JavaScript! The problem I was facing was:</p>
-
-<blockquote><p>&ldquo;How do I call a function and provide the arguments as an array instead of a comma separated list?&rdquo;</p></blockquote>
-
-<p>My arguments were not know until runtime and there could be 0 to 4 arguments.</p>
-
-<h2>Function.prototype.apply() to the rescue</h2>
-
-<p>The apply() method lets you invoke a function with arguments as an array.</p>
-
-<p>Here I am making a service call to stopStreaming for every vehicle in my array.  This service call returns a promise that I push into an array.  I can then use <code>$.when.apply(this, promises).always()</code> to wait for <em>all</em> the calls to return before I resolve my deferred.</p>
-
-<p>Here is the full code.</p>
-
-<pre><code>vm.stopAll = function () {
-  var deferred = $.Deferred();
-  var promises = [];
-  for (var i = 0; i &lt; streamingVehicles.selectedVehicles.length; i++) {
-     var vehicle = streamingVehicles.selectedVehicles[i];
-     var promise = stopStreaming(vehicle);
-     promises.push(promise);
-  }
-
-  $.when.apply(this, promises).always(function() {
-     deferred.resolve();
-  });
-
-  return deferred.promise();
-};
-</code></pre>
-
-<p>Incidentally, this is also a nice demonstration of using the promise pattern and the jQuery Deferred object.</p>
 ]]></content>
   </entry>
   
