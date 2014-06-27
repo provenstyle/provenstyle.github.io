@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git | Proven Style]]></title>
+  <link href="http://provenstyle.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://provenstyle.github.io/"/>
+  <updated>2014-01-20T17:52:37-06:00</updated>
+  <id>http://provenstyle.github.io/</id>
+  <author>
+    <name><![CDATA[Michael Dudley]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Git Clean]]></title>
+    <link href="http://provenstyle.github.io/blog/2013/07/13/git-clean/"/>
+    <updated>2013-07-13T13:48:00-05:00</updated>
+    <id>http://provenstyle.github.io/blog/2013/07/13/git-clean</id>
+    <content type="html"><![CDATA[<p>I love finding new commands for git that make my life simpler.  I added a new git command to my tool belt today.</p>
+
+<pre><code>git clean -d -f
+</code></pre>
+
+<p>git clean removes files and directories that are not being tracked by git.  It is really useful for deleting the Visual Studio artifacts that hang around even if they are not being used.  It is amazing how may problems can be solved with your solution just by deleting the bin folder and recreating it.  I find this especially true when I do sweeping refactorings in my solution.</p>
+
+<p>-n Will do a dry run. It doesn&rsquo;t remove anything it just tells you what it would delete.</p>
+
+<p>-d Tells git to remove directories</p>
+
+<p>-f Forces the delete</p>
+
+<p>To delete files only and not the directories</p>
+
+<pre><code>git clean -f
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

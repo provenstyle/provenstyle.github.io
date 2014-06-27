@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Durandal - system.js - Proven Style</title>
+  <meta name="author" content="Michael Dudley">
+
+  
+  <meta name="description" content="The Durandal core is made up of 8 modules. The system.js module provides core functionality to Durandal and it is also useful for any custom modules &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://provenstyle.github.io/blog/2014/01/04/durandal-system-dot-js">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Proven Style" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Proven Style</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:provenstyle.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/projects">Projects</a></li>
+  <li><a href="/presentations">Presentations</a></li>
+  <li><a href="/about">About Me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Durandal - system.js</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-04T12:36:00-06:00" pubdate data-updated="true">Jan 4<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The Durandal core is made up of 8 modules.  The system.js module provides core functionality to Durandal and it is also useful for any custom modules we write in our own apps.</p>
+
+<h3>Features</h3>
+
+<ul>
+<li>Logging</li>
+<li>Debug mode</li>
+<li>Object Type Testing</li>
+<li>noop function</li>
+<li>console.log polyfill</li>
+<li>Object.keys polyfill</li>
+<li>gets and sets the __moduleId__ of an object</li>
+<li>Creates seam to use your preferred promise implementation</li>
+</ul>
+
+
+<h3>Architecture</h3>
+
+<ul>
+<li>AMD Module</li>
+<li>system is an object literal. There is only one instance.</li>
+<li>Lines: 427</li>
+<li>Documentation is done with <a href="https://github.com/yui/yuidoc">YUIDoc &ndash; Javascript Documentation Tool</a></li>
+</ul>
+
+
+<h3>Dependencies</h3>
+
+<ul>
+<li>requireJs</li>
+<li>jQuery</li>
+<li>No other durandal dependencies</li>
+<li>Every module in durandal depends on system</li>
+</ul>
+
+
+<h2>Debug mode</h2>
+
+<pre><code>system.debug(true); 
+</code></pre>
+
+<ul>
+<li>turns debug mode on</li>
+<li>logs to the console and throw errors</li>
+</ul>
+
+
+<p>Debug is off by default</p>
+
+<pre><code>system.debug(false);
+</code></pre>
+
+<ul>
+<li>turns debug mode off</li>
+<li>no logging and no error throwing</li>
+<li>uses the noop function until turned on</li>
+</ul>
+
+
+<h2>Interesting uses of JavaScript</h2>
+
+<h4>Reflection</h4>
+
+<pre><code>Object.keys(obj);
+
+Returns an array of strings representing all the enumerable property names of the object
+</code></pre>
+
+<h4>Make shortcuts to native JavaScript functions</h4>
+
+<pre><code> var nativeKeys = Object.keys,
+     hasOwnProperty = Object.prototype.hasOwnProperty,
+     toString = Object.prototype.toString,
+     nativeIsArray = Array.isArray,
+     slice = Array.prototype.slice;
+</code></pre>
+
+<h4>The noop function (No Operation)</h4>
+
+<pre><code> var noop = function() { };
+
+ Define a function that does nothing and set it as a default 
+ to be replaced later during configuration if desired.
+</code></pre>
+
+<h4>Arguments and parameters</h4>
+
+<p>You can refer to a functions parameters by name or by using the arguments array</p>
+
+<p>Test the number of arguments and take different actions.</p>
+
+<pre><code>if (arguments.length == 1) {};
+</code></pre>
+
+<p>Refer to arguments by index</p>
+
+<pre><code>var first = arguments[0];       
+</code></pre>
+
+<p>Accept n number of arguments in a function.</p>
+
+<pre><code>function(obj) {         
+
+    //do something with obj
+
+    var rest = slice.call(arguments, 1);    
+    for (var i = 0; i &lt; rest.length; i++) {
+        var source = rest[i];
+
+        if (source) {
+            //do something with the rest of the arguments
+        }
+    }
+}
+</code></pre>
+
+<h2>Public Api</h2>
+
+<p><a href="http://durandaljs.com/documentation/api/#module/system">Official system.js documentation is here >></a></p>
+
+<h4>My summary of the api</h4>
+
+<pre><code>version - durandal version
+noop - no operation function
+getModuleId - gets \_\_moduleId\_\_
+setModuleId - sets \_\_moduleId\_\_
+resolveObject - returns either the object or news it up from a function
+debug - turns debug mode on and off
+log - logs to console. noop by default
+error - noop by default
+assert - throws and error only in debug mode
+defer - wraps the jquery defer.  Lets you replace it with a different implementation
+guid - simple guid
+acquire - returns modules from requireJs
+extend - copies properties from n number of functions onto an object and returns the extended object
+wait - waits specified number of seconds and returns a promise
+keys- polyfills the getKeys behavior
+</code></pre>
+
+<h3>is Functions to test object types</h3>
+
+<pre><code>isElement
+isArray
+isObject
+isBoolean
+isPromise
+isArguments
+isFunction
+isString
+isNumber
+isDate
+isRegExp
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Michael Dudley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-04T12:36:00-06:00" pubdate data-updated="true">Jan 4<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2014/01/04/durandal-system-dot-js/" data-via="" data-counturl="http://provenstyle.github.io/blog/2014/01/04/durandal-system-dot-js/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/19/registering-asp-dot-net/" title="Previous Post: Registering ASP.NET in IIS">&laquo; Registering ASP.NET in IIS</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/" title="Next Post: Using apply in JavaScript">Using apply in JavaScript &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/deploying-sql-server-compact/">Deploying SQL Server Compact</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/">Using Apply in JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/04/durandal-system-dot-js/">Durandal - system.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/19/registering-asp-dot-net/">Registering ASP.NET in IIS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/31/setting-permissions-for-your-app-pool/">Setting Permissions for Your App Pool</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Michael Dudley -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

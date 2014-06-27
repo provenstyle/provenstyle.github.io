@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Deploying SQL Server Compact - Proven Style</title>
+  <meta name="author" content="Michael Dudley">
+
+  
+  <meta name="description" content="I wrote an application that stores information in a SQL Server Compact database. It worked on my machine, but when QA installed it they received the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://provenstyle.github.io/blog/2014/01/20/deploying-sql-server-compact">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Proven Style" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Proven Style</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:provenstyle.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/projects">Projects</a></li>
+  <li><a href="/presentations">Presentations</a></li>
+  <li><a href="/about">About Me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Deploying SQL Server Compact</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-20T17:46:00-06:00" pubdate data-updated="true">Jan 20<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I wrote an application that stores information in a SQL Server Compact database.  It worked on my machine, but when QA installed it they received the following error:</p>
+
+<pre>
+Exception occured while configuring the databaseSystem.ArgumentException: 
+Unable to find the requested .Net Framework Data Provider.  It may not be installed.
+    at System.Data.Entity.Infrastructure.SqlCeConnectionFactory.CreateConnection(String nameOrConnectionString)
+    at System.Data.Entity.Internal.LazyInternalConnection.Initialize()
+    at System.Data.Entity.Internal.LazyInternalConnection.get_ProviderName()
+    at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+    at System.Data.Entity.Internal.InternalContext.CreateObjectContextForDdlOps()
+    at System.Data.Entity.Database.Exists()
+</pre>
+
+
+<p>I had added references to the following dll&rsquo;s and they were in my bin directory:</p>
+
+<ul>
+<li>System.Data.SqlServerCe.dll</li>
+<li>System.Data.SqlServerCe.Entity.dll</li>
+</ul>
+
+
+<p>but SQL Server Compact has other dependencies of which I was not aware.  Namely SQL Server Compact needs its own native components.  These can either come from the GAC or from a local copy installed in the applications file path.</p>
+
+<h2>Reproducing the issue</h2>
+
+<p>I had installed SQL Server Compact 4.0 on my machine several months back and didn&rsquo;t realize these libraries were installed in the Gac on my machine.  To reproduce the issue all I had to do was uninstalled SQL Server Compact 4.0.</p>
+
+<h2>Possible Solutions</h2>
+
+<ol>
+<li><p>Install SQL Server Compact on the target machine for my application.</p></li>
+<li><p>Include a local copy of the SQL Server Compact native components with my application.</p></li>
+</ol>
+
+
+<p>I chose option two because the whole idea of using SQLCE on this project was so that the users did not have to install a database.</p>
+
+<h2>First I had to get the Microsoft SQL Server Compact files</h2>
+
+<p>I installed Microsoft SQL Server Compact 4 on my machine again and in the <code>C:\Program Files\Microsoft SQL Server Compact Edition\v4.0\Private</code> folder are all the files I needed to deploy SqlCE with my application. After I got the files I needed I uninstalled SqlCE again.</p>
+
+<h2>Next I had to add a post build event</h2>
+
+<p>This copies two processor specific folders into the bin directory</p>
+
+<pre>
+if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+xcopy /s /y "$(SolutionDir)..\Lib\Microsoft\SqlServerCe\x86\*.*" "$(TargetDir)x86"
+
+if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+xcopy /s /y "$(SolutionDir)..\Lib\Microsoft\SqlServerCe\amd64\*.*" "$(TargetDir)amd64"
+
+</pre>
+
+
+<h2>Then I had to configure my Data Provider</h2>
+
+<pre><code>&lt;system.data&gt;
+    &lt;DbProviderFactories&gt;
+        &lt;remove invariant="System.Data.SqlServerCe.4.0" /&gt;
+        &lt;add name="Microsoft SQL Server Compact Data Provider 4.0" invariant="System.Data.SqlServerCe.4.0" description=".NET Framework Data Provider for Microsoft SQL Server Compact" type="System.Data.SqlServerCe.SqlCeProviderFactory, System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /&gt;
+    &lt;/DbProviderFactories&gt;
+&lt;/system.data&gt;
+</code></pre>
+
+<h2>Lastly I needed an assembly redirect</h2>
+
+<p>Here is the error I encountered.</p>
+
+<pre>
+Could not load file or assembly 'System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+</pre>
+
+
+<h3>Assembly Redirect</h3>
+
+<pre><code>&lt;dependentAssembly&gt;
+    &lt;assemblyIdentity name="System.Data.SqlServerCe" publicKeyToken="89845dcd8080cc91" culture="neutral" /&gt;
+    &lt;bindingRedirect oldVersion="0.0.0.0-4.0.0.1" newVersion="4.0.0.1" /&gt;
+&lt;/dependentAssembly&gt;
+</code></pre>
+
+<h2>Also noteworthy</h2>
+
+<p>I had already configured Entity Frame work to use SqlCE</p>
+
+<pre><code>&lt;configSections&gt;
+    &lt;section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" /&gt;
+&lt;/configSections&gt;
+
+&lt;connectionStrings&gt;
+    &lt;add name="lvsData" connectionString="Data Source=C:\temp\appData.sdf;Max Database Size=4000;" providerName="System.Data.SqlServerCe.4.0" /&gt;
+&lt;/connectionStrings&gt;
+
+&lt;runtime&gt;    
+    &lt;assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
+        &lt;dependentAssembly&gt;
+            &lt;assemblyIdentity name="EntityFramework" publicKeyToken="b77a5c561934e089" culture="neutral" /&gt;
+            &lt;bindingRedirect oldVersion="0.0.0.0-5.0.0.0" newVersion="5.0.0.0" /&gt;
+        &lt;/dependentAssembly&gt;      
+    &lt;/assemblyBinding&gt;
+&lt;/runtime&gt;
+
+&lt;entityFramework&gt;
+    &lt;defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlCeConnectionFactory, EntityFramework"&gt;
+        &lt;parameters&gt;
+            &lt;parameter value="System.Data.SqlServerCe.4.0" /&gt;
+        &lt;/parameters&gt;
+    &lt;/defaultConnectionFactory&gt;
+&lt;/entityFramework&gt;
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Michael Dudley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-20T17:46:00-06:00" pubdate data-updated="true">Jan 20<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sqlce/'>sqlce</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2014/01/20/deploying-sql-server-compact/" data-via="" data-counturl="http://provenstyle.github.io/blog/2014/01/20/deploying-sql-server-compact/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/" title="Previous Post: Using apply in JavaScript">&laquo; Using apply in JavaScript</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/deploying-sql-server-compact/">Deploying SQL Server Compact</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/">Using Apply in JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/04/durandal-system-dot-js/">Durandal - system.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/19/registering-asp-dot-net/">Registering ASP.NET in IIS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/31/setting-permissions-for-your-app-pool/">Setting Permissions for Your App Pool</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Michael Dudley -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
