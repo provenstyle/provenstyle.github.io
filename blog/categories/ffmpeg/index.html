@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Using apply in JavaScript - Proven Style</title>
+  <title>Category: FFMPEG - Proven Style</title>
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="Today I went a little deeper into JavaScript! The problem I was facing was: &ldquo;How do I call a function and provide the arguments as an array &hellip;">
+  <meta name="description" content="Category: FFMPEG">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://provenstyle.github.io/blog/2014/01/06/using-apply-to-call-a-function-in-javascript">
+  <link rel="canonical" href="http://provenstyle.github.ioblog/categories/ffmpeg">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Proven Style" type="application/atom+xml">
@@ -65,117 +65,35 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Using Apply in JavaScript</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-06T18:33:00-06:00" pubdate data-updated="true">Jan 6<span>th</span>, 2014</time>
-        
-      </p>
+    <h1 class="entry-title">Category: FFMPEG</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-<div class="entry-content"><p>Today I went a little deeper into JavaScript! The problem I was facing was:</p>
 
-<blockquote><p>&ldquo;How do I call a function and provide the arguments as an array instead of a comma separated list?&rdquo;</p></blockquote>
+  
+  <h2>2014</h2>
 
-<p>My arguments were not know until runtime and there could be 0 to 4 arguments.</p>
+<article>
+  
+<h1><a href="/blog/2014/06/30/FFMPEG-Documentation/">FFMPEG Where Is The Documentation?</a></h1>
+<time datetime="2014-06-30T13:00:00-05:00" pubdate><span class='month'>Jun</span> <span class='day'>30</span> <span class='year'>2014</span></time>
 
-<h2>Function.prototype.apply() to the rescue</h2>
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/ffmpeg/'>FFMPEG</a></span>
+</footer>
 
-<p>The apply() method lets you invoke a function with arguments as an array.</p>
 
-<p>Here I am making a service call to stopStreaming for every vehicle in my array.  This service call returns a promise that I push into an array.  I can then use <code>$.when.apply(this, promises).always()</code> to wait for <em>all</em> the calls to return before I resolve my deferred.</p>
+</article>
 
-<p>Here is the full code.</p>
-
-<pre><code>vm.stopAll = function () {
-  var deferred = $.Deferred();
-  var promises = [];
-  for (var i = 0; i &lt; streamingVehicles.selectedVehicles.length; i++) {
-     var vehicle = streamingVehicles.selectedVehicles[i];
-     var promise = stopStreaming(vehicle);
-     promises.push(promise);
-  }
-
-  $.when.apply(this, promises).always(function() {
-     deferred.resolve();
-  });
-
-  return deferred.promise();
-};
-</code></pre>
-
-<p>Incidentally, this is also a nice demonstration of using the promise pattern and the jQuery Deferred object.</p>
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Michael Dudley</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-06T18:33:00-06:00" pubdate data-updated="true">Jan 6<span>th</span>, 2014</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/javascript/'>javascript,</a>, <a class='category' href='/blog/categories/jquery/'>jquery</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/" data-via="" data-counturl="http://provenstyle.github.io/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/" >Tweet</a>
-  
-  
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/01/04/durandal-system-dot-js/" title="Previous Post: Durandal - system.js">&laquo; Durandal - system.js</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/01/20/deploying-sql-server-compact/" title="Next Post: Deploying SQL Server Compact">Deploying SQL Server Compact &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
 </div>

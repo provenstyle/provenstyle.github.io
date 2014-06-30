@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Using apply in JavaScript - Proven Style</title>
+  <title>FFMPEG Where Is The Documentation? - Proven Style</title>
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="Today I went a little deeper into JavaScript! The problem I was facing was: &ldquo;How do I call a function and provide the arguments as an array &hellip;">
+  <meta name="description" content="It seems like the version of FFMPEG that I am using on projects is never that same version covered in the documentation on the website. You can get &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://provenstyle.github.io/blog/2014/01/06/using-apply-to-call-a-function-in-javascript">
+  <link rel="canonical" href="http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Documentation">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Proven Style" type="application/atom+xml">
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">Using Apply in JavaScript</h1>
+      <h1 class="entry-title">FFMPEG Where Is the Documentation?</h1>
     
     
       <p class="meta">
@@ -85,45 +85,23 @@
   
 
 
-<time datetime="2014-01-06T18:33:00-06:00" pubdate data-updated="true">Jan 6<span>th</span>, 2014</time>
+<time datetime="2014-06-30T13:00:00-05:00" pubdate data-updated="true">Jun 30<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Today I went a little deeper into JavaScript! The problem I was facing was:</p>
+<div class="entry-content"><p>It seems like the version of FFMPEG that I am using on projects is never that same version covered in the documentation on the website.  You can get version specific documentation with FFMPEG from the console with the -h argument.</p>
 
-<blockquote><p>&ldquo;How do I call a function and provide the arguments as an array instead of a comma separated list?&rdquo;</p></blockquote>
+<p><code>ffmpeg -h</code></p>
 
-<p>My arguments were not know until runtime and there could be 0 to 4 arguments.</p>
+<p>You can dump the ffmpeg documentation to a text file for easier reading and searching by redirecting the output.</p>
 
-<h2>Function.prototype.apply() to the rescue</h2>
+<p><code>ffmpeg -h &gt; c:\temp\ffmpeg.txt</code></p>
 
-<p>The apply() method lets you invoke a function with arguments as an array.</p>
-
-<p>Here I am making a service call to stopStreaming for every vehicle in my array.  This service call returns a promise that I push into an array.  I can then use <code>$.when.apply(this, promises).always()</code> to wait for <em>all</em> the calls to return before I resolve my deferred.</p>
-
-<p>Here is the full code.</p>
-
-<pre><code>vm.stopAll = function () {
-  var deferred = $.Deferred();
-  var promises = [];
-  for (var i = 0; i &lt; streamingVehicles.selectedVehicles.length; i++) {
-     var vehicle = streamingVehicles.selectedVehicles[i];
-     var promise = stopStreaming(vehicle);
-     promises.push(promise);
-  }
-
-  $.when.apply(this, promises).always(function() {
-     deferred.resolve();
-  });
-
-  return deferred.promise();
-};
-</code></pre>
-
-<p>Incidentally, this is also a nice demonstration of using the promise pattern and the jQuery Deferred object.</p>
+<p>You can also view a list of the supported codecs for your version of FFMPEG
+<code>ffmpeg -codec &gt; c:\temp\supportedCodecs.txt</code></p>
 </div>
 
 
@@ -146,12 +124,12 @@
   
 
 
-<time datetime="2014-01-06T18:33:00-06:00" pubdate data-updated="true">Jan 6<span>th</span>, 2014</time>
+<time datetime="2014-06-30T13:00:00-05:00" pubdate data-updated="true">Jun 30<span>th</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/javascript/'>javascript,</a>, <a class='category' href='/blog/categories/jquery/'>jquery</a>
+    <a class='category' href='/blog/categories/ffmpeg/'>FFMPEG</a>
   
 </span>
 
@@ -160,7 +138,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/" data-via="" data-counturl="http://provenstyle.github.io/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Documentation/" data-via="" data-counturl="http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Documentation/" >Tweet</a>
   
   
   
@@ -169,10 +147,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/01/04/durandal-system-dot-js/" title="Previous Post: Durandal - system.js">&laquo; Durandal - system.js</a>
+        <a class="basic-alignment left" href="/blog/2014/06/27/Bundling-Multiple-Spas/" title="Previous Post: Durandal: Bundling Multiple Spas With Weyland">&laquo; Durandal: Bundling Multiple Spas With Weyland</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/01/20/deploying-sql-server-compact/" title="Next Post: Deploying SQL Server Compact">Deploying SQL Server Compact &raquo;</a>
       
     </p>
   </footer>

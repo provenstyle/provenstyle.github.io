@@ -4,7 +4,7 @@
   <title><![CDATA[Proven Style]]></title>
   <link href="http://provenstyle.github.io/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
-  <updated>2014-06-27T13:48:34-05:00</updated>
+  <updated>2014-06-30T13:25:29-05:00</updated>
   <id>http://provenstyle.github.io/</id>
   <author>
     <name><![CDATA[Michael Dudley]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FFMPEG Where Is The Documentation?]]></title>
+    <link href="http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Documentation/"/>
+    <updated>2014-06-30T13:00:00-05:00</updated>
+    <id>http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Documentation</id>
+    <content type="html"><![CDATA[<p>It seems like the version of FFMPEG that I am using on projects is never that same version covered in the documentation on the website.  You can get version specific documentation with FFMPEG from the console with the -h argument.</p>
+
+<p><code>ffmpeg -h</code></p>
+
+<p>You can dump the ffmpeg documentation to a text file for easier reading and searching by redirecting the output.</p>
+
+<p><code>ffmpeg -h &gt; c:\temp\ffmpeg.txt</code></p>
+
+<p>You can also view a list of the supported codecs for your version of FFMPEG
+<code>ffmpeg -codec &gt; c:\temp\supportedCodecs.txt</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Durandal: Bundling Multiple Spas With Weyland]]></title>
