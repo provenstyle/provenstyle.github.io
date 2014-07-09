@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "FFMPEG: Analyzing audio and video  files"
-date: 2014-06-30 13:00
+date: 2014-07-09 17:00
 comments: true
 categories: FFMPEG
 ---
