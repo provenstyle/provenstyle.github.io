@@ -4,7 +4,7 @@
   <title><![CDATA[Proven Style]]></title>
   <link href="http://provenstyle.github.io/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
-  <updated>2014-07-09T17:20:00-05:00</updated>
+  <updated>2014-07-09T17:22:37-05:00</updated>
   <id>http://provenstyle.github.io/</id>
   <author>
     <name><![CDATA[Michael Dudley]]></name>
@@ -68,7 +68,7 @@ At least one output file must be specified
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[FFMPEG Where Is The Documentation?]]></title>
+    <title type="html"><![CDATA[FFMPEG: Where Is The Documentation?]]></title>
     <link href="http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Documentation/"/>
     <updated>2014-06-30T13:00:00-05:00</updated>
     <id>http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Documentation</id>
