@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "FFMPEG Where Is The Documentation?"
+title: "FFMPEG: Where Is The Documentation?"
 date: 2014-06-30 13:00
 comments: true
 categories: FFMPEG
