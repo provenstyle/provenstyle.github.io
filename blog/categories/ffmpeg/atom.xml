@@ -4,7 +4,7 @@
   <title><![CDATA[Category: FFMPEG | Proven Style]]></title>
   <link href="http://provenstyle.github.io/blog/categories/ffmpeg/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
-  <updated>2014-07-09T17:17:28-05:00</updated>
+  <updated>2014-07-09T17:20:00-05:00</updated>
   <id>http://provenstyle.github.io/</id>
   <author>
     <name><![CDATA[Michael Dudley]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[FFMPEG: Analyzing audio and video  files]]></title>
-    <link href="http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Inspection/"/>
-    <updated>2014-06-30T13:00:00-05:00</updated>
-    <id>http://provenstyle.github.io/blog/2014/06/30/FFMPEG-Inspection</id>
+    <link href="http://provenstyle.github.io/blog/2014/07/09/FFMPEG-Inspection/"/>
+    <updated>2014-07-09T17:00:00-05:00</updated>
+    <id>http://provenstyle.github.io/blog/2014/07/09/FFMPEG-Inspection</id>
     <content type="html"><![CDATA[<p><code>ffmpeg -i c:\temp\video.mpg</code></p>
 
 <p><code>-i</code> is the input argument.  By specifying an input, but no output, FFMPEG will inspect the file and give you lots of information such as:</p>
