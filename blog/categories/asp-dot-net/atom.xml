@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: asp.net, | Proven Style]]></title>
+  <title><![CDATA[Category: Asp.net | Proven Style]]></title>
   <link href="http://provenstyle.github.io/blog/categories/asp-dot-net/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
-  <updated>2014-07-09T17:22:37-05:00</updated>
+  <updated>2014-07-17T11:34:16-05:00</updated>
   <id>http://provenstyle.github.io/</id>
   <author>
     <name><![CDATA[Michael Dudley]]></name>
@@ -14,29 +14,26 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Registering ASP.NET in IIS]]></title>
-    <link href="http://provenstyle.github.io/blog/2013/08/19/registering-asp-dot-net/"/>
-    <updated>2013-08-19T16:32:00-05:00</updated>
-    <id>http://provenstyle.github.io/blog/2013/08/19/registering-asp-dot-net</id>
-    <content type="html"><![CDATA[<p>Every time I have set up a new development environment in the last three years I have forgotten to register Asp.net with IIS.  When I was first learning it would derail me for a quite a while.  I have done it so many times now that I recognize what is going on when I see the errors, but it is still irritating.  What was that command again?  I am putting it here so I never have to Google it again!</p>
+    <title type="html"><![CDATA[Asp.net Identity User Names]]></title>
+    <link href="http://provenstyle.github.io/blog/2014/07/17/AspNet-Identity-User-Names/"/>
+    <updated>2014-07-17T13:00:00-05:00</updated>
+    <id>http://provenstyle.github.io/blog/2014/07/17/AspNet-Identity-User-Names</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been working on the web site for the <a href="https://DallasTechFest.com" title="Dallas Tech Fest">2014 Dallas Tech Fest</a> and it has been such a fun project! A huge part of that is because of <a href="https://twitter.com/uxward">Brandon Ward&rsquo;s </a>amazing designs.</p>
 
-<pre><code>aspnet_regiis
+<p>One unexpected challange was using twitter for the authorization.  After 30 people had already signed up on the site with no issue, there was one user that was stuck in an authentication loop.  Everytime he authenticated with twitter, he was asked to log in again.</p>
+
+<p>It turns out he was the first user on the site, that I know of, to have a user name starting with an underscore.  By default Asp.net Identity will only accept alphanumeric user names, and I was using his twitter username as the username for the site.  You would have the same issue if you tried to allow an email as the username.</p>
+
+<p>To fix it, I went into the constructor for the Account controller and created a new UserValidator.</p>
+
+<pre><code>public AccountController(UserManager&lt;ApplicationUser&gt; userManager)
+{
+    UserManager = userManager;
+    UserManager.UserValidator = 
+        new UserValidator&lt;ApplicationUser&gt;(UserManager)
+            {AllowOnlyAlphanumericUserNames = false};
+}
 </code></pre>
-
-<p>&ldquo;Not a recognized command!&rdquo; you say?
-Yes, you have to change directories into the .net version that you are using.</p>
-
-<pre><code>cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
-</code></pre>
-
-<p>Now run the command.</p>
-
-<p>What? That didn&rsquo;t do it either?  Don&rsquo;t forget to add the install flag.</p>
-
-<pre><code>aspnet_regiis -i
-</code></pre>
-
-<p>Still not working?  Don&rsquo;t forget to start your command prompt as admin, and yes now you have to cd directories all over again into your .net version.</p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="ffmpeg -i c:\temp\video.mpg -i is the input argument. By specifying an input, but no output, FFMPEG will inspect the file and give you lots of &hellip;">
+  <meta name="description" content="I&rsquo;ve been working on the web site for the 2014 Dallas Tech Fest and it has been such a fun project! A huge part of that is because of Brandon &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/17/AspNet-Identity-User-Names/">Asp.net Identity User Names</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-17T13:00:00-05:00" pubdate data-updated="true">Jul 17<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve been working on the web site for the <a href="https://DallasTechFest.com" title="Dallas Tech Fest">2014 Dallas Tech Fest</a> and it has been such a fun project! A huge part of that is because of <a href="https://twitter.com/uxward">Brandon Ward&rsquo;s </a>amazing designs.</p>
+
+<p>One unexpected challange was using twitter for the authorization.  After 30 people had already signed up on the site with no issue, there was one user that was stuck in an authentication loop.  Everytime he authenticated with twitter, he was asked to log in again.</p>
+
+<p>It turns out he was the first user on the site, that I know of, to have a user name starting with an underscore.  By default Asp.net Identity will only accept alphanumeric user names, and I was using his twitter username as the username for the site.  You would have the same issue if you tried to allow an email as the username.</p>
+
+<p>To fix it, I went into the constructor for the Account controller and created a new UserValidator.</p>
+
+<pre><code>public AccountController(UserManager&lt;ApplicationUser&gt; userManager)
+{
+    UserManager = userManager;
+    UserManager.UserValidator = 
+        new UserValidator&lt;ApplicationUser&gt;(UserManager)
+            {AllowOnlyAlphanumericUserNames = false};
+}
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -809,6 +860,10 @@ Yes, you have to change directories into the .net version that you are using.</p
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/17/AspNet-Identity-User-Names/">Asp.net Identity User Names</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/09/FFMPEG-Inspection/">FFMPEG: Analyzing Audio and Video Files</a>
       </li>
     
@@ -822,10 +877,6 @@ Yes, you have to change directories into the .net version that you are using.</p
     
       <li class="post">
         <a href="/blog/2014/01/20/deploying-sql-server-compact/">Deploying SQL Server Compact</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/06/using-apply-to-call-a-function-in-javascript/">Using Apply in JavaScript</a>
       </li>
     
   </ul>

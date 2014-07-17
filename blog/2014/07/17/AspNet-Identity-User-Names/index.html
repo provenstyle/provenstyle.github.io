@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Git Clean - Proven Style</title>
+  <title>Asp.net Identity User Names - Proven Style</title>
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="I love finding new commands for git that make my life simpler. I added a new git command to my tool belt today. git clean -d -f git clean removes &hellip;">
+  <meta name="description" content="I&rsquo;ve been working on the web site for the 2014 Dallas Tech Fest and it has been such a fun project! A huge part of that is because of Brandon &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://provenstyle.github.io/blog/2013/07/13/git-clean">
+  <link rel="canonical" href="http://provenstyle.github.io/blog/2014/07/17/AspNet-Identity-User-Names">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Proven Style" type="application/atom+xml">
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">Git Clean</h1>
+      <h1 class="entry-title">Asp.net Identity User Names</h1>
     
     
       <p class="meta">
@@ -85,29 +85,28 @@
   
 
 
-<time datetime="2013-07-13T13:48:00-05:00" pubdate data-updated="true">Jul 13<span>th</span>, 2013</time>
+<time datetime="2014-07-17T13:00:00-05:00" pubdate data-updated="true">Jul 17<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I love finding new commands for git that make my life simpler.  I added a new git command to my tool belt today.</p>
+<div class="entry-content"><p>I&rsquo;ve been working on the web site for the <a href="https://DallasTechFest.com" title="Dallas Tech Fest">2014 Dallas Tech Fest</a> and it has been such a fun project! A huge part of that is because of <a href="https://twitter.com/uxward">Brandon Ward&rsquo;s </a>amazing designs.</p>
 
-<pre><code>git clean -d -f
-</code></pre>
+<p>One unexpected challange was using twitter for the authorization.  After 30 people had already signed up on the site with no issue, there was one user that was stuck in an authentication loop.  Everytime he authenticated with twitter, he was asked to log in again.</p>
 
-<p>git clean removes files and directories that are not being tracked by git.  It is really useful for deleting the Visual Studio artifacts that hang around even if they are not being used.  It is amazing how may problems can be solved with your solution just by deleting the bin folder and recreating it.  I find this especially true when I do sweeping refactorings in my solution.</p>
+<p>It turns out he was the first user on the site, that I know of, to have a user name starting with an underscore.  By default Asp.net Identity will only accept alphanumeric user names, and I was using his twitter username as the username for the site.  You would have the same issue if you tried to allow an email as the username.</p>
 
-<p>-n Will do a dry run. It doesn&rsquo;t remove anything it just tells you what it would delete.</p>
+<p>To fix it, I went into the constructor for the Account controller and created a new UserValidator.</p>
 
-<p>-d Tells git to remove directories</p>
-
-<p>-f Forces the delete</p>
-
-<p>To delete files only and not the directories</p>
-
-<pre><code>git clean -f
+<pre><code>public AccountController(UserManager&lt;ApplicationUser&gt; userManager)
+{
+    UserManager = userManager;
+    UserManager.UserValidator = 
+        new UserValidator&lt;ApplicationUser&gt;(UserManager)
+            {AllowOnlyAlphanumericUserNames = false};
+}
 </code></pre>
 </div>
 
@@ -131,12 +130,12 @@
   
 
 
-<time datetime="2013-07-13T13:48:00-05:00" pubdate data-updated="true">Jul 13<span>th</span>, 2013</time>
+<time datetime="2014-07-17T13:00:00-05:00" pubdate data-updated="true">Jul 17<span>th</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/git/'>git</a>
+    <a class='category' href='/blog/categories/asp-dot-net/'>Asp.net</a>
   
 </span>
 
@@ -145,7 +144,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2013/07/13/git-clean/" data-via="" data-counturl="http://provenstyle.github.io/blog/2013/07/13/git-clean/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2014/07/17/AspNet-Identity-User-Names/" data-via="" data-counturl="http://provenstyle.github.io/blog/2014/07/17/AspNet-Identity-User-Names/" >Tweet</a>
   
   
   
@@ -154,8 +153,8 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2014/07/09/FFMPEG-Inspection/" title="Previous Post: FFMPEG: Analyzing audio and video  files">&laquo; FFMPEG: Analyzing audio and video  files</a>
       
-        <a class="basic-alignment right" href="/blog/2013/07/31/setting-permissions-for-your-app-pool/" title="Next Post: Setting Permissions For Your App Pool">Setting Permissions For Your App Pool &raquo;</a>
       
     </p>
   </footer>
