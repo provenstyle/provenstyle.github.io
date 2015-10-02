@@ -3,7 +3,7 @@ layout: post
 title: "Using apply in JavaScript"
 date: 2014-01-06 18:33
 comments: true
-categories: javascript, jquery
+categories: ['javascript', 'jquery']
 ---
 
 Today I went a little deeper into JavaScript! The problem I was facing was: 

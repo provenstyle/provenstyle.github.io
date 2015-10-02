@@ -3,7 +3,7 @@ layout: post
 title: "Durandal: Bundling Multiple Spas With Weyland"
 date: 2014-06-27 13:00
 comments: true
-categories: durandal, javascript, weyland
+categories: ['durandal', 'javascript', 'weyland']
 ---
 [Durandal.js: Get Started](http://bit.ly/DurandalBlog)
 
