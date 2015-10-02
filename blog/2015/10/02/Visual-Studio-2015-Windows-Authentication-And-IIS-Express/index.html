@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Asp.net - Proven Style</title>
+  <title>Visual Studio 2015, Windows Authentication, And IIS Express - Proven Style</title>
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="Category: Asp.net">
+  <meta name="description" content="I finally upgraded my Visual Studio to 2015 and the transition has been pretty smooth! However, today I had an issue that took me a little while to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://provenstyle.github.ioblog/categories/asp-dot-net">
+  <link rel="canonical" href="http://provenstyle.github.io/blog/2015/10/02/Visual-Studio-2015-Windows-Authentication-And-IIS-Express">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Proven Style" type="application/atom+xml">
@@ -77,52 +77,123 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Asp.net</h1>
+    
+      <h1 class="entry-title">Visual Studio 2015, Windows Authentication, and IIS Express</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-02T13:00:00-05:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2015</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>I finally upgraded my Visual Studio to 2015 and the transition has been pretty smooth!  However, today I had an issue that took me a little while to solve.  An Asp.net MVC web app that uses Windows Authentication, had been working great, but was suddenly gave me the following error:</p>
 
-  
-  <h2>2015</h2>
+<pre><code>Access is denied.
 
-<article>
-  
-<h1><a href="/blog/2015/10/02/Visual-Studio-2015-Windows-Authentication-And-IIS-Express/">Visual Studio 2015, Windows Authentication, And IIS Express</a></h1>
-<time datetime="2015-10-02T13:00:00-05:00" pubdate><span class='month'>Oct</span> <span class='day'>02</span> <span class='year'>2015</span></time>
+Description: An error occurred while accessing the resources required to serve this request. 
+The server may not be configured for access to the requested URL. 
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/asp-dot-net/'>Asp.net</a>, <a class='category' href='/blog/categories/iis-express/'>IIS Express</a>, <a class='category' href='/blog/categories/visual-studio-2015/'>Visual Studio 2015</a></span>
-</footer>
+Error message 401.2.: Unauthorized: Logon failed due to server configuration.  
+Verify that you have permission to view this directory or page based on the credentials 
+you supplied and the authentication methods enabled on the Web server.  Contact the Web 
+server's administrator for additional assistance.
+</code></pre>
 
+<p>I learn several things trouble shooting this.  The first is that IIS Express configuration has moved from <code>C:\Users\YourUserName\Documents\IISExpress\config\applicationhost.config</code> out of the My Documents IISExpress folder and into the new <code>.vs/configuration</code> folder.</p>
 
-</article>
+<p>The second thing I was reminded of is that there is another place to edit properties for your project.  I almost never press f4 on my project.  I right click and go down to properties, but that is a very different set of properties than you get when you press f4.</p>
 
+<p>The solution to my authorization issue was to go into the f4 project properties and set the following:</p>
 
+<p>Anonymous Authentication &ndash; Disabled</p>
 
-  
-  <h2>2014</h2>
+<p>Windows Authentication &ndash; Enabled</p>
 
-<article>
-  
-<h1><a href="/blog/2014/07/17/AspNet-Identity-User-Names/">Asp.net Identity User Names</a></h1>
-<time datetime="2014-07-17T13:00:00-05:00" pubdate><span class='month'>Jul</span> <span class='day'>17</span> <span class='year'>2014</span></time>
+<p>Apparently these properties update the IIS applicationHost.config directly.  It adds the following to the config.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/asp-dot-net/'>Asp.net</a></span>
-</footer>
+<pre><code>&lt;location path="Project.Name.Here"&gt;
+    &lt;system.webServer&gt;
+        &lt;security&gt;
+            &lt;authentication&gt;
+                &lt;windowsAuthentication enabled="true" /&gt;
+                &lt;anonymousAuthentication enabled="false" /&gt;
+            &lt;/authentication&gt;
+        &lt;/security&gt;
+    &lt;/system.webServer&gt;
+&lt;/location&gt;
+</code></pre>
 
-
-</article>
-
+<p>It is irritating that you can&rsquo;t save these somewhere in the .csproj file instead, but not a big deal once you know it is there.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Michael Dudley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-02T13:00:00-05:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/asp-dot-net/'>Asp.net</a>, <a class='category' href='/blog/categories/iis-express/'>IIS Express</a>, <a class='category' href='/blog/categories/visual-studio-2015/'>Visual Studio 2015</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://provenstyle.github.io/blog/2015/10/02/Visual-Studio-2015-Windows-Authentication-And-IIS-Express/" data-via="michaelpdudley" data-counturl="http://provenstyle.github.io/blog/2015/10/02/Visual-Studio-2015-Windows-Authentication-And-IIS-Express/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/17/AspNet-Identity-User-Names/" title="Previous Post: Asp.net Identity User Names">&laquo; Asp.net Identity User Names</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

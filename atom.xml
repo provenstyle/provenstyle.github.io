@@ -4,7 +4,7 @@
   <title><![CDATA[Proven Style]]></title>
   <link href="http://provenstyle.github.io/atom.xml" rel="self"/>
   <link href="http://provenstyle.github.io/"/>
-  <updated>2014-08-13T20:34:45-05:00</updated>
+  <updated>2015-10-02T18:15:39-05:00</updated>
   <id>http://provenstyle.github.io/</id>
   <author>
     <name><![CDATA[Michael Dudley]]></name>
@@ -12,6 +12,52 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Visual Studio 2015, Windows Authentication, And IIS Express]]></title>
+    <link href="http://provenstyle.github.io/blog/2015/10/02/Visual-Studio-2015-Windows-Authentication-And-IIS-Express/"/>
+    <updated>2015-10-02T13:00:00-05:00</updated>
+    <id>http://provenstyle.github.io/blog/2015/10/02/Visual-Studio-2015-Windows-Authentication-And-IIS-Express</id>
+    <content type="html"><![CDATA[<p>I finally upgraded my Visual Studio to 2015 and the transition has been pretty smooth!  However, today I had an issue that took me a little while to solve.  An Asp.net MVC web app that uses Windows Authentication, had been working great, but was suddenly gave me the following error:</p>
+
+<pre><code>Access is denied.
+
+Description: An error occurred while accessing the resources required to serve this request. 
+The server may not be configured for access to the requested URL. 
+
+Error message 401.2.: Unauthorized: Logon failed due to server configuration.  
+Verify that you have permission to view this directory or page based on the credentials 
+you supplied and the authentication methods enabled on the Web server.  Contact the Web 
+server's administrator for additional assistance.
+</code></pre>
+
+<p>I learn several things trouble shooting this.  The first is that IIS Express configuration has moved from <code>C:\Users\YourUserName\Documents\IISExpress\config\applicationhost.config</code> out of the My Documents IISExpress folder and into the new <code>.vs/configuration</code> folder.</p>
+
+<p>The second thing I was reminded of is that there is another place to edit properties for your project.  I almost never press f4 on my project.  I right click and go down to properties, but that is a very different set of properties than you get when you press f4.</p>
+
+<p>The solution to my authorization issue was to go into the f4 project properties and set the following:</p>
+
+<p>Anonymous Authentication &ndash; Disabled</p>
+
+<p>Windows Authentication &ndash; Enabled</p>
+
+<p>Apparently these properties update the IIS applicationHost.config directly.  It adds the following to the config.</p>
+
+<pre><code>&lt;location path="Project.Name.Here"&gt;
+    &lt;system.webServer&gt;
+        &lt;security&gt;
+            &lt;authentication&gt;
+                &lt;windowsAuthentication enabled="true" /&gt;
+                &lt;anonymousAuthentication enabled="false" /&gt;
+            &lt;/authentication&gt;
+        &lt;/security&gt;
+    &lt;/system.webServer&gt;
+&lt;/location&gt;
+</code></pre>
+
+<p>It is irritating that you can&rsquo;t save these somewhere in the .csproj file instead, but not a big deal once you know it is there.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Asp.net Identity User Names]]></title>

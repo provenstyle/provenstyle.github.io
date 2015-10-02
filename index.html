@@ -9,7 +9,7 @@
   <meta name="author" content="Michael Dudley">
 
   
-  <meta name="description" content="I&rsquo;ve been working on the web site for the 2014 Dallas Tech Fest and it has been such a fun project! A huge part of that is because of Brandon &hellip;">
+  <meta name="description" content="I finally upgraded my Visual Studio to 2015 and the transition has been pretty smooth! However, today I had an issue that took me a little while to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,79 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/02/Visual-Studio-2015-Windows-Authentication-And-IIS-Express/">Visual Studio 2015, Windows Authentication, and IIS Express</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-02T13:00:00-05:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I finally upgraded my Visual Studio to 2015 and the transition has been pretty smooth!  However, today I had an issue that took me a little while to solve.  An Asp.net MVC web app that uses Windows Authentication, had been working great, but was suddenly gave me the following error:</p>
+
+<pre><code>Access is denied.
+
+Description: An error occurred while accessing the resources required to serve this request. 
+The server may not be configured for access to the requested URL. 
+
+Error message 401.2.: Unauthorized: Logon failed due to server configuration.  
+Verify that you have permission to view this directory or page based on the credentials 
+you supplied and the authentication methods enabled on the Web server.  Contact the Web 
+server's administrator for additional assistance.
+</code></pre>
+
+<p>I learn several things trouble shooting this.  The first is that IIS Express configuration has moved from <code>C:\Users\YourUserName\Documents\IISExpress\config\applicationhost.config</code> out of the My Documents IISExpress folder and into the new <code>.vs/configuration</code> folder.</p>
+
+<p>The second thing I was reminded of is that there is another place to edit properties for your project.  I almost never press f4 on my project.  I right click and go down to properties, but that is a very different set of properties than you get when you press f4.</p>
+
+<p>The solution to my authorization issue was to go into the f4 project properties and set the following:</p>
+
+<p>Anonymous Authentication &ndash; Disabled</p>
+
+<p>Windows Authentication &ndash; Enabled</p>
+
+<p>Apparently these properties update the IIS applicationHost.config directly.  It adds the following to the config.</p>
+
+<pre><code>&lt;location path="Project.Name.Here"&gt;
+    &lt;system.webServer&gt;
+        &lt;security&gt;
+            &lt;authentication&gt;
+                &lt;windowsAuthentication enabled="true" /&gt;
+                &lt;anonymousAuthentication enabled="false" /&gt;
+            &lt;/authentication&gt;
+        &lt;/security&gt;
+    &lt;/system.webServer&gt;
+&lt;/location&gt;
+</code></pre>
+
+<p>It is irritating that you can&rsquo;t save these somewhere in the .csproj file instead, but not a big deal once you know it is there.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -803,59 +876,9 @@ Yes, you have to change directories into the .net version that you are using.</p
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/13/git-clean/">Git Clean</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T13:48:00-05:00" pubdate data-updated="true">Jul 13<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I love finding new commands for git that make my life simpler.  I added a new git command to my tool belt today.</p>
-
-<pre><code>git clean -d -f
-</code></pre>
-
-<p>git clean removes files and directories that are not being tracked by git.  It is really useful for deleting the Visual Studio artifacts that hang around even if they are not being used.  It is amazing how may problems can be solved with your solution just by deleting the bin folder and recreating it.  I find this especially true when I do sweeping refactorings in my solution.</p>
-
-<p>-n Will do a dry run. It doesn&rsquo;t remove anything it just tells you what it would delete.</p>
-
-<p>-d Tells git to remove directories</p>
-
-<p>-f Forces the delete</p>
-
-<p>To delete files only and not the directories</p>
-
-<pre><code>git clean -f
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -872,6 +895,10 @@ Yes, you have to change directories into the .net version that you are using.</p
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/02/Visual-Studio-2015-Windows-Authentication-And-IIS-Express/">Visual Studio 2015, Windows Authentication, and IIS Express</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/17/AspNet-Identity-User-Names/">Asp.net Identity User Names</a>
       </li>
     
@@ -885,10 +912,6 @@ Yes, you have to change directories into the .net version that you are using.</p
     
       <li class="post">
         <a href="/blog/2014/06/27/Bundling-Multiple-Spas/">Durandal: Bundling Multiple Spas With Weyland</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/20/deploying-sql-server-compact/">Deploying SQL Server Compact</a>
       </li>
     
   </ul>
@@ -933,7 +956,7 @@ Yes, you have to change directories into the .net version that you are using.</p
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Michael Dudley -
+  Copyright &copy; 2015 - Michael Dudley -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
